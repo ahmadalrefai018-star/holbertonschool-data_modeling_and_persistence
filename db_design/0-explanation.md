@@ -17,3 +17,35 @@ Deleting an enrollment does not delete student, course, or instructor data.
 
 The design follows Third Normal Form: each non-key attribute
 depends on its table's key, without partial or transitive dependencies.
+
+## ER Diagram
+
+```mermaid
+erDiagram
+    students ||--o{ enrollments : enrolls
+    courses ||--o{ enrollments : includes
+    instructors ||--o{ courses : teaches
+
+    students {
+        INTEGER student_id PK
+        TEXT student_name
+        TEXT student_email
+    }
+
+    instructors {
+        INTEGER instructor_id PK
+        TEXT instructor_name
+        TEXT instructor_email
+    }
+
+    courses {
+        TEXT course_id PK
+        TEXT course_name
+        INTEGER instructor_id FK
+    }
+
+    enrollments {
+        INTEGER student_id PK, FK
+        TEXT course_id PK, FK
+    }
+```
